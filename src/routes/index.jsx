@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
+import {AuthContext} from '../context/AuthContext';
 import AuthStack from './AuthStack';
+import AppStack from './AppStack';
 
 const Router = () => {
+  const {userToken} = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      <AuthStack />
+      {userToken !== null ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

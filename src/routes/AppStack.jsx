@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home} from '../screens';
+import {AddAsset, Dashboard} from '../screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,8 @@ const AppStack = () => {
         contentStyle: {backgroundColor: '#FCFCFC'},
         headerShown: false,
       }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="AddAsset" component={AddAsset} />
     </Stack.Navigator>
   );
 };
