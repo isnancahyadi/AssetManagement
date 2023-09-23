@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 import {Button, Text, TextInput} from 'react-native-paper';
 import {useForm} from 'react-hook-form';
@@ -7,20 +7,26 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {screenHeight, screenWidth} from '../../values/ScreenSize';
 import {color} from '../../values/Color';
-import {Input} from '../../components';
+import {Alert, Input} from '../../components';
 import {EMAIL_REGEX, PASSWORD_REGEX} from '../../values/Regex';
 
 import LoginBanner from '../../assets/banner/login_banner.svg';
 import Logo from '../../assets/logo/logo.svg';
+import {AuthContext} from '../../context/AuthContext';
 
 const Login = () => {
+  const {login, isAlert, isLoading, hideAlert, errorMsg} =
+    useContext(AuthContext);
+
   const {control, handleSubmit} = useForm();
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   const toggleSecureTextEntry = () => setSecureTextEntry(!secureTextEntry);
 
-  const handleLogin = async data => {};
+  const handleLogin = async data => {
+    login(data);
+  };
 
   return (
     <ScrollView>
@@ -94,11 +100,6 @@ const Login = () => {
             secureTextEntry={secureTextEntry}
             rules={{
               required: 'This form is required',
-              pattern: {
-                value: PASSWORD_REGEX,
-                message:
-                  'Password must include number, lowercase, upercase, special character (@$%^&), min. 8 character, max. 32 character',
-              },
             }}
           />
           <LinearGradient
@@ -107,12 +108,19 @@ const Login = () => {
             <Button
               labelStyle={styles.buttonLabel}
               style={styles.button}
+              disabled={isLoading}
               onPress={handleSubmit(handleLogin)}>
-              Login
+              {isLoading ? 'Please Wait...' : 'Login'}
             </Button>
           </LinearGradient>
         </View>
       </SafeAreaView>
+      <Alert
+        title={'Login Failed'}
+        isAlert={isAlert}
+        hideAlert={hideAlert}
+        message={errorMsg}
+      />
     </ScrollView>
   );
 };

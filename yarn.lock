@@ -6258,6 +6258,13 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-awesome-alerts@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/react-native-awesome-alerts/-/react-native-awesome-alerts-2.0.0.tgz"
+  integrity sha512-ZRBNnDfpE+aQCtXXnQcfGLqwzZ53Q45CNkQI4hOiF8/9JPuCyMUQL2aqtiypnLpCIX+CB28Jcx1KVJ6/reaZsg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-chart-kit@^6.12.0:
   version "6.12.0"
   resolved "https://registry.npmjs.org/react-native-chart-kit/-/react-native-chart-kit-6.12.0.tgz"
@@ -6280,6 +6287,11 @@ react-native-element-dropdown@^2.10.0:
   integrity sha512-aFjw0JbUIKGkqklHxDm8aDCZW6Q1GICP7pIHc0sllvpWpEamItzOwAMV4G1mBIKxED77Mp+nkq9p0Dhsr/faVw==
   dependencies:
     lodash "^4.17.21"
+
+react-native-encrypted-storage@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/react-native-encrypted-storage/-/react-native-encrypted-storage-4.0.3.tgz"
+  integrity sha512-0pJA4Aj2S1PIJEbU7pN/Qvf7JIJx3hFywx+i+bLHtgK0/6Zryf1V2xVsWcrD50dfiu3jY1eN2gesQ5osGxE7jA==
 
 react-native-gifted-charts@^1.3.8:
   version "1.3.8"
@@ -6312,6 +6324,11 @@ react-native-screens@^3.25.0, "react-native-screens@>= 3.0.0":
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-sensitive-info@^5.5.8, "react-native-sensitive-info@3.x - 5.x":
+  version "5.5.8"
+  resolved "https://registry.npmjs.org/react-native-sensitive-info/-/react-native-sensitive-info-5.5.8.tgz"
+  integrity sha512-p99oaEW4QG1RdUNrkvd/c6Qdm856dQw/Rk81f9fA6Y3DlPs6ADNdU+jbPuTz3CcOUJwuKBDNenX6LR9KfmGFEg==
 
 react-native-svg-transformer@^1.1.0:
   version "1.1.0"
@@ -6459,12 +6476,22 @@ recast@^0.21.0:
     source-map "~0.6.1"
     tslib "^2.0.1"
 
+redux-persist-sensitive-storage@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/redux-persist-sensitive-storage/-/redux-persist-sensitive-storage-1.0.0.tgz"
+  integrity sha512-AD8JyDsTpj+H+ZOGcg1qs9MkdcNOmHsBu+QL2kq2aKDB5HaCjy15qP4eryz7RVhWBatu4WC51R//1bfKHNb6yg==
+
+redux-persist@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/redux-persist/-/redux-persist-6.0.0.tgz"
+  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
+
 redux-thunk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.2.tgz"
   integrity sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==
 
-redux@^4, "redux@^4 || ^5.0.0-beta.0", redux@^4.2.1:
+redux@^4, "redux@^4 || ^5.0.0-beta.0", redux@^4.2.1, redux@>4.0.0:
   version "4.2.1"
   resolved "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz"
   integrity sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==

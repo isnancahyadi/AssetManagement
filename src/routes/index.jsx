@@ -4,9 +4,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AuthContext} from '../context/AuthContext';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
+import {SplashScreen} from '../screens';
 
 const Router = () => {
-  const {userToken} = useContext(AuthContext);
+  const {userToken, checkSession} = useContext(AuthContext);
+
+  if (checkSession) {
+    return <SplashScreen />;
+  }
 
   return (
     <NavigationContainer>

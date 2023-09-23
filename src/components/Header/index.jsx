@@ -1,13 +1,16 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {screenHeight, screenWidth} from '../../values/ScreenSize';
 import Logo from '../../assets/logo/logo.svg';
 import {Avatar, Button, Text} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {color} from '../../values/Color';
 import LinearGradient from 'react-native-linear-gradient';
+import {AuthContext} from '../../context/AuthContext';
 
 const Header = () => {
+  const {logout} = useContext(AuthContext);
+
   return (
     <SafeAreaView
       style={{
@@ -64,7 +67,10 @@ const Header = () => {
         <LinearGradient
           colors={color.primaryGradient}
           style={styles.buttonContainer}>
-          <Button labelStyle={styles.buttonLabel} style={styles.button}>
+          <Button
+            labelStyle={styles.buttonLabel}
+            style={styles.button}
+            onPress={() => logout()}>
             Logout
           </Button>
         </LinearGradient>
