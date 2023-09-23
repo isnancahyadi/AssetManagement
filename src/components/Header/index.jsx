@@ -1,15 +1,19 @@
-import {StyleSheet, View} from 'react-native';
 import React, {useContext} from 'react';
-import {screenHeight, screenWidth} from '../../values/ScreenSize';
-import Logo from '../../assets/logo/logo.svg';
+import {StyleSheet, View} from 'react-native';
 import {Avatar, Button, Text} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {color} from '../../values/Color';
 import LinearGradient from 'react-native-linear-gradient';
+import {useSelector} from 'react-redux';
+
 import {AuthContext} from '../../context/AuthContext';
+import {screenWidth} from '../../values/ScreenSize';
+import Logo from '../../assets/logo/logo.svg';
+import {color} from '../../values/Color';
 
 const Header = () => {
   const {logout} = useContext(AuthContext);
+
+  const user = useSelector(state => state?.user?.data);
 
   return (
     <SafeAreaView
@@ -60,8 +64,8 @@ const Header = () => {
             source={require('../../assets/img/picture.jpg')}
           />
           <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-            <Text variant="labelLarge">Isnan Arif</Text>
-            <Text variant="labelMedium">isnan.arifc@gmail.com</Text>
+            <Text variant="labelLarge">{user?.username}</Text>
+            <Text variant="labelMedium">{user?.email}</Text>
           </View>
         </View>
         <LinearGradient
@@ -89,7 +93,6 @@ const styles = StyleSheet.create({
     lineHeight: 21.17,
   },
   buttonContainer: {
-    // paddingHorizontal: 10,
     borderRadius: 5,
   },
   button: {
