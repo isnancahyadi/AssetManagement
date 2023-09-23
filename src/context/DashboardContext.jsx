@@ -6,7 +6,7 @@ export const DashboardContext = createContext();
 
 export const DashboardProvider = ({children}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9F9F9'}}>
       <Header />
       <DashboardContext.Provider value={''}>
         {children}

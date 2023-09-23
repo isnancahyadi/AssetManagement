@@ -9,7 +9,7 @@ const AppStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        contentStyle: {backgroundColor: '#FCFCFC'},
+        contentStyle: {backgroundColor: '#F9F9F9'},
         headerShown: false,
       }}>
       <Stack.Screen name="Dashboard" component={Dashboard} />
