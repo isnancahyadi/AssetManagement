@@ -8,6 +8,7 @@ import {AddAsset, Asset, Home} from '../../screens';
 import {color} from '../../values/Color';
 import {Button, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {ButtonCircle} from '../../components';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,23 +60,11 @@ const Dashboard = () => {
           tabBarButton: () => {
             return (
               <View style={{top: -25}}>
-                <LinearGradient
-                  colors={color.primaryGradient}
-                  style={{
-                    width: 60,
-                    height: 60,
-                    borderRadius: 60 / 2,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Button
-                    onPress={() => navigation.navigate('AddAsset')}
-                    style={{
-                      borderRadius: 60 / 2,
-                    }}>
-                    <Icon name="plus" size={24} color={color.white} />
-                  </Button>
-                </LinearGradient>
+                <ButtonCircle
+                  size={60}
+                  onPress={() => navigation.navigate('AddAsset')}>
+                  <Icon name="plus" size={24} color={color.white} />
+                </ButtonCircle>
               </View>
             );
           },
