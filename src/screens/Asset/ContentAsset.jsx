@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Divider, Surface, Text, TextInput} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 
@@ -11,6 +12,8 @@ import {screenHeight} from '../../values/ScreenSize';
 import {ButtonCircle} from '../../components';
 
 const ContentAsset = () => {
+  const navigation = useNavigation();
+
   const [loading, setLoading] = useState(true);
   const [querySearch, setQuerySearch] = useState('');
   const [page, setPage] = useState(1);
@@ -21,7 +24,7 @@ const ContentAsset = () => {
   const getAsset = async () => {
     setLoading(true);
     await axios
-      .get(`${config.REACT_APP_GET_ASSET}?page=${page}&search=${keyword}`)
+      .get(`${config.REACT_APP_ASSET}?page=${page}&search=${keyword}`)
       .then(({data}) => {
         if (data?.results?.length === 0) {
           setLoading(false);
@@ -35,9 +38,17 @@ const ContentAsset = () => {
       })
       .catch(error => {
         setLoading(false);
+        setStatusData(false);
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getAsset();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
     getAsset();
@@ -84,7 +95,9 @@ const ContentAsset = () => {
                       <Text variant="labelLarge">Asset Name</Text>
                       <Text variant="titleSmall">{item?.name}</Text>
                     </View>
-                    <ButtonCircle size={32}>
+                    <ButtonCircle
+                      size={32}
+                      onPress={() => navigation.navigate()}>
                       <Icon name="pencil" size={16} color={color.white} />
                     </ButtonCircle>
                   </View>

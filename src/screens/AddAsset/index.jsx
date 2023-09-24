@@ -1,31 +1,57 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Surface, Text} from 'react-native-paper';
-import {HeaderSimple, Input, SelectOption} from '../../components';
+import {Alert, HeaderSimple, Input, SelectOption} from '../../components';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import LinearGradient from 'react-native-linear-gradient';
 import {color} from '../../values/Color';
 import {screenHeight} from '../../values/ScreenSize';
-
-const statusData = [
-  {name: 'Sold', id: 1},
-  {name: 'In Stock', id: 2},
-  {name: 'Expired', id: 3},
-];
-
-const locationData = [
-  {name: 'Gudang', id: 1},
-  {name: 'Rak Penjualan', id: 2},
-];
+import axios from 'axios';
+import config from '../../../config';
 
 const AddAsset = () => {
   const navigation = useNavigation();
 
   const {control, handleSubmit} = useForm();
 
-  const handleSaveAsset = async data => {};
+  const [isAlert, setIsAlert] = useState(false);
+  const [status, setStatus] = useState([]);
+  const [location, setLocation] = useState([]);
+
+  const getStatus = async () => {
+    await axios
+      .get(config.REACT_APP_GET_STATUS)
+      .then(({data}) => setStatus(data?.results))
+      .catch(error => console.log(error));
+  };
+
+  const getLocation = async () => {
+    await axios
+      .get(config.REACT_APP_GET_LOCATION)
+      .then(({data}) => setLocation(data?.results))
+      .catch(error => console.log(error));
+  };
+
+  useEffect(() => {
+    Promise.all([getStatus(), getLocation()]);
+  }, []);
+
+  const hideAlert = () => setIsAlert(false);
+
+  const handleSaveAsset = async data => {
+    await axios
+      .post(config.REACT_APP_ASSET, {
+        name: data?.name,
+        status_id: data?.status,
+        location_id: data?.location,
+      })
+      .then(() => {
+        setIsAlert(true);
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <SafeAreaView style={{height: screenHeight}}>
@@ -50,7 +76,7 @@ const AddAsset = () => {
             <SelectOption
               name="status"
               control={control}
-              data={statusData}
+              data={status}
               placeholder="Select status"
               rules={{required: 'This form is required'}}
             />
@@ -60,7 +86,7 @@ const AddAsset = () => {
             <SelectOption
               name="location"
               control={control}
-              data={locationData}
+              data={location}
               placeholder="Select location"
               rules={{required: 'This form is required'}}
             />
@@ -77,6 +103,17 @@ const AddAsset = () => {
           Submit
         </Button>
       </LinearGradient>
+      {isAlert && (
+        <Alert
+          title={'Success!'}
+          message={'Data has been submitted.'}
+          type={'success'}
+          isAlert={isAlert}
+          hideAlert={hideAlert}
+          autoHide={true}
+          onHide={() => navigation.goBack()}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -9,8 +9,11 @@ import {color} from '../../values/Color';
 import {screenHeight} from '../../values/ScreenSize';
 import {Bullet} from '../../components';
 import config from '../../../config';
+import {useNavigation} from '@react-navigation/native';
 
 const ContentHome = () => {
+  const navigation = useNavigation();
+
   const [chartWidth, setChartWidth] = useState(0);
 
   const [loading, setLoading] = useState(false);
@@ -57,13 +60,16 @@ const ContentHome = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      Promise.all([getAssetByStatus(), getAssetByLocation()])
-        .then(() => setLoading(false))
-        .catch(() => setLoading(false));
-    }, 2000);
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      setLoading(true);
+      setTimeout(() => {
+        Promise.all([getAssetByStatus(), getAssetByLocation()])
+          .then(() => setLoading(false))
+          .catch(() => setLoading(false));
+      }, 2000);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const legendColorStatus = item => {
     switch (item?.status?.name) {
