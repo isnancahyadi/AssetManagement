@@ -97,7 +97,7 @@ const ContentAsset = () => {
                     </View>
                     <ButtonCircle
                       size={32}
-                      onPress={() => navigation.navigate()}>
+                      onPress={() => navigation.navigate('EditAsset', item)}>
                       <Icon name="pencil" size={16} color={color.white} />
                     </ButtonCircle>
                   </View>
