@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, Button, Text} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -9,11 +9,14 @@ import {AuthContext} from '../../context/AuthContext';
 import {screenWidth} from '../../values/ScreenSize';
 import Logo from '../../assets/logo/logo.svg';
 import {color} from '../../values/Color';
+import Alert from '../Alert';
 
 const Header = () => {
   const {logout} = useContext(AuthContext);
 
   const user = useSelector(state => state?.user?.data);
+
+  const [confirmationAlert, setConfirmationAlert] = useState(false);
 
   return (
     <SafeAreaView
@@ -74,11 +77,25 @@ const Header = () => {
           <Button
             labelStyle={styles.buttonLabel}
             style={styles.button}
-            onPress={() => logout()}>
+            onPress={() => setConfirmationAlert(true)}>
             Logout
           </Button>
         </LinearGradient>
       </View>
+      {confirmationAlert && (
+        <Alert
+          title={'Logout'}
+          message={
+            'When you want to use this app, you have to relogin, are you sure?'
+          }
+          isAlert={confirmationAlert}
+          hideAlert={() => setConfirmationAlert(false)}
+          showConfirmButton={true}
+          showCancelButton={true}
+          labelConfirm={'Logout'}
+          onConfirm={() => logout()}
+        />
+      )}
     </SafeAreaView>
   );
 };
