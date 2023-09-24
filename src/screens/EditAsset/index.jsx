@@ -18,6 +18,8 @@ const EditAsset = () => {
   const [dataAsset, setDataAsset] = useState(null);
 
   const [isAlert, setIsAlert] = useState(false);
+  const [confirmationAlert, setConfirmationAlert] = useState(false);
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState([]);
   const [location, setLocation] = useState([]);
 
@@ -69,6 +71,18 @@ const EditAsset = () => {
         location_id: data?.location,
       })
       .then(() => {
+        setMessage('Data has been updated.');
+        setIsAlert(true);
+      })
+      .catch(error => console.log(error));
+  };
+
+  const handleDelete = async () => {
+    setConfirmationAlert(false);
+    await axios
+      .delete(`${config.REACT_APP_ASSET}/${dataAsset?.id}`)
+      .then(() => {
+        setMessage('Data has been deleted.');
         setIsAlert(true);
       })
       .catch(error => console.log(error));
@@ -114,25 +128,51 @@ const EditAsset = () => {
           </View>
         </View>
       </View>
-      <LinearGradient
-        colors={color.primaryGradient}
-        style={styles.buttonContainer}>
-        <Button
-          labelStyle={styles.buttonLabel}
-          style={styles.button}
-          onPress={handleSubmit(handleSaveAsset)}>
-          Submit
-        </Button>
-      </LinearGradient>
+      <View style={styles.actionContainer}>
+        <View style={styles.buttonContainer}>
+          <Button
+            mode="outlined"
+            labelStyle={[styles.buttonLabel, {color: color.red300}]}
+            style={[
+              styles.button,
+              {borderColor: color.red300, borderWidth: 1.4},
+            ]}
+            onPress={() => setConfirmationAlert(true)}>
+            Delete
+          </Button>
+        </View>
+        <LinearGradient
+          colors={color.primaryGradient}
+          style={styles.buttonContainer}>
+          <Button
+            labelStyle={styles.buttonLabel}
+            style={styles.button}
+            onPress={handleSubmit(handleSaveAsset)}>
+            Save Update
+          </Button>
+        </LinearGradient>
+      </View>
       {isAlert && (
         <Alert
           title={'Success!'}
-          message={'Data has been update.'}
+          message={message}
           type={'success'}
           isAlert={isAlert}
           hideAlert={hideAlert}
           autoHide={true}
           onHide={() => navigation.goBack()}
+        />
+      )}
+      {confirmationAlert && (
+        <Alert
+          title={'Confirmation'}
+          message={'Your action will cause this data permanently deleted'}
+          isAlert={confirmationAlert}
+          hideAlert={() => setConfirmationAlert(false)}
+          showConfirmButton={true}
+          showCancelButton={true}
+          labelConfirm={'Delete'}
+          onConfirm={handleDelete}
         />
       )}
     </SafeAreaView>
@@ -155,6 +195,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     rowGap: 8,
   },
+  actionContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    columnGap: 20,
+    marginHorizontal: 25,
+    marginVertical: 20,
+    bottom: 0,
+    start: 0,
+    end: 0,
+  },
   buttonLabel: {
     color: color.white,
     fontFamily: 'RedHatDisplay-Regular',
@@ -162,13 +212,8 @@ const styles = StyleSheet.create({
     lineHeight: 21.17,
   },
   buttonContainer: {
-    position: 'absolute',
+    flex: 1,
     borderRadius: 5,
-    marginHorizontal: 25,
-    marginVertical: 20,
-    bottom: 0,
-    start: 0,
-    end: 0,
   },
   button: {
     height: 41,

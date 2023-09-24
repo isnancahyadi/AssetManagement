@@ -16,6 +16,9 @@ const Alert = ({
   onHide,
   type,
   showConfirmButton,
+  showCancelButton,
+  labelConfirm,
+  onConfirm,
 }) => {
   useEffect(() => {
     if (autoHide) {
@@ -46,18 +49,38 @@ const Alert = ({
             type === 'error' && <Text variant="titleSmall">error logo</Text>
           )}
           <Text variant="titleSmall">{title}</Text>
-          <Text variant="bodyMedium">{message}</Text>
-          {showConfirmButton && (
-            <LinearGradient
-              colors={color.primaryGradient}
-              style={styles.buttonContainer}>
-              <Button
-                labelStyle={styles.buttonLabel}
-                style={styles.button}
-                onPress={hideAlert}>
-                Ok
-              </Button>
-            </LinearGradient>
+          <Text variant="bodyMedium" style={{textAlign: 'center'}}>
+            {message}
+          </Text>
+          {(showConfirmButton || showCancelButton) && (
+            <View style={styles.actionContainer}>
+              {showCancelButton && (
+                <View style={styles.buttonContainer}>
+                  <Button
+                    mode="outlined"
+                    labelStyle={[styles.buttonLabel, {color: color.red300}]}
+                    onPress={hideAlert}
+                    style={[
+                      styles.button,
+                      {borderColor: color.red300, borderWidth: 1.4},
+                    ]}>
+                    Cancel
+                  </Button>
+                </View>
+              )}
+              {showConfirmButton && (
+                <LinearGradient
+                  colors={color.primaryGradient}
+                  style={styles.buttonContainer}>
+                  <Button
+                    labelStyle={styles.buttonLabel}
+                    style={styles.button}
+                    onPress={onConfirm}>
+                    {labelConfirm}
+                  </Button>
+                </LinearGradient>
+              )}
+            </View>
           )}
         </View>
       </Modal>
@@ -83,6 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  actionContainer: {
+    flexDirection: 'row',
+    columnGap: 20,
+  },
   buttonLabel: {
     color: color.white,
     fontFamily: 'RedHatDisplay-Regular',
@@ -90,6 +117,7 @@ const styles = StyleSheet.create({
     lineHeight: 21.17,
   },
   buttonContainer: {
+    flex: 1,
     borderRadius: 5,
   },
   button: {
