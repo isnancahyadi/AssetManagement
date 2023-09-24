@@ -1,6 +1,5 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Pressable} from 'react-native';
 import React, {useEffect} from 'react';
-import AwesomeAlert from 'react-native-awesome-alerts';
 import {Button, Modal, Portal, Text} from 'react-native-paper';
 import {color} from '../../values/Color';
 import LinearGradient from 'react-native-linear-gradient';
@@ -72,12 +71,9 @@ const Alert = ({
                 <LinearGradient
                   colors={color.primaryGradient}
                   style={styles.buttonContainer}>
-                  <Button
-                    labelStyle={styles.buttonLabel}
-                    style={styles.button}
-                    onPress={onConfirm}>
-                    {labelConfirm}
-                  </Button>
+                  <Pressable style={styles.button} onPress={onConfirm}>
+                    <Text style={styles.buttonLabel}>{labelConfirm}</Text>
+                  </Pressable>
                 </LinearGradient>
               )}
             </View>

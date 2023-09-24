@@ -120,6 +120,9 @@ const Login = () => {
         isAlert={isAlert}
         hideAlert={hideAlert}
         message={errorMsg}
+        showConfirmButton={true}
+        labelConfirm={'Ok'}
+        onConfirm={hideAlert}
       />
     </ScrollView>
   );
