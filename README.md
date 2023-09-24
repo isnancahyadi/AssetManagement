@@ -1,79 +1,131 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Asset Management
 
-# Getting Started
+## Table of Contents
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- [Installation and Requirement](#installation-and-requirement)
+- [Configuration](#configuration)
+- [Build APK](#build-apk)
+- [Features](#features)
+- [Screenshot](#screenshot)
+- [Authors and Contact Info](#authors-and-contact-info)
 
-## Step 1: Start the Metro Server
+## Installation and Requirement
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+This application require min `SDK 21 (Android 5.0 - Loliipop)` for running in device or emulator.
 
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+1. Clone this repository to your local machine:
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+git clone https://github.com/isnancahyadi/AssetManagement
+cd AssetManagement
 ```
 
-### For iOS
+2. Install the required dependencies using npm or yarn:
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm install
+# or
+yarn install
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Configuration
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+After installation done, you must create `.env` file in the root directory of the project and add the following environment variable:
 
-## Step 3: Modifying your App
+```bash
+REACT_APP_LOGIN=your_backend_api
+REACT_APP_LOGOUT=your_backend_api
+REACT_APP_PROFILE=your_backend_api
+REACT_APP_GET_ASSET_BY_STATUS=your_backend_api
+REACT_APP_GET_ASSET_BY_LOCATION=your_backend_api
+REACT_APP_ASSET=your_backend_api
+REACT_APP_GET_STATUS=your_backend_api
+REACT_APP_GET_LOCATION=your_backend_api
+REACT_APP_KEYCHAIN_SERVICE=your_keychain
+```
 
-Now that you have successfully run the app, let's modify it.
+Here you can run project using `npx react-native run-android` command for android or `npx react-native run-ios` for iOS
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Build APK
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+1. Go to root directory in terminal and run:
 
-## Congratulations! :tada:
+```bash
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+2. Go to android directory:
 
-### Now what?
+```bash
+cd android
+```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+3. In this android directory, run this command:
 
-# Troubleshooting
+```bash
+./gradlew assembleDebug
+```
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+4. You'll find the app in:
 
-# Learn More
+`yourProjectDirectory/android/app/build/outputs/apk/debug/app-debug.apk`
 
-To learn more about React Native, take a look at the following resources:
+## Features
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- User Authentication: Allow users to log in and manage assets.
+- Asset Analytics: Users can see analytics from asset in home screen.
+- Assets Management: Allow users to see asset list, update asset, and delete asset.
+- Secure Data Storage: Sensitive data is securely stored using Native Encrypted Storage.
+- Responsive Design: The app is designed to work seamlessly on both Android and iOS devices.
+
+## Screenshot
+
+<table>
+    <tr>
+        <td>1. Splash Screen</td>
+        <td>2. Login Screen</td>
+        <td>3. Home Screen</td>
+    </tr>
+    <tr>
+        <td>
+            <img width="350px" src="./documentation/splashscreen.jpg" border="0" alt="Splash Screen" />
+        </td>
+        <td>
+            <img width="350px" src="./documentation/login.jpg" border="0"  alt="Login" />
+        </td>
+        <td>
+            <img width="350px" src="./documentation/home.jpg" border="0"  alt="Home" />
+        </td>
+    </tr>
+    <tr>
+        <td>4. List Asset Screen</td>
+        <td>5. Input Asset Screen</td>
+        <td>6. Edit Asset Screen</td>
+    </tr>
+    <tr>
+        <td>
+            <img width="350px" src="./documentation/listasset.jpg" border="0" alt="List Asset" />
+        </td>
+        <td>
+            <img width="350px" src="./documentation/inputasset.jpg" border="0"  alt="Input Asset" />
+        </td>
+        <td>
+            <img width="350px" src="./documentation/editasset.jpg" border="0"  alt="Edit Asset" />
+        </td>
+    </tr>
+</table>
+
+## Authors and Contact Info
+
+For more information about this project or have any question or need help for development, feel free to contact me.
+
+Isnan Arif Cahyadi
+
+<div id="badges">
+  <a href="https://www.linkedin.com/in/isnanarifcahyadi/">
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+  </a>
+  <a href="mailto:isnan.arifc@gmail.com">
+    <img src="https://img.shields.io/badge/GMail-red?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
+  </a>
+</div>
